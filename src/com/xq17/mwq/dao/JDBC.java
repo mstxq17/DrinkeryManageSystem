@@ -8,7 +8,7 @@ public class JDBC {
 	
 	// 定义链接信息
 	private static final String DRIVERCLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static final String URL = "jdbc:sqlserver://192.168.0.23:1433;DatabaseName=db_DrinkeryManage";
+	private static final String URL = "jdbc:sqlserver://192.168.0.25:1433;DatabaseName=db_DrinkeryManage";
 	private static final String NAME = "sa";
 	private static final String PASS = "sa";
 	

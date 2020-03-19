@@ -87,5 +87,106 @@ public class Dao extends BaseDao {
             return object.toString();
         }
     }
+
+	public String sOrderFormOfMinDatetime() {
+		// TODO Auto-generated method stub
+		String sql = "select min(datetime) from tb_order_form";
+		System.out.println(sql);
+        Object object = selectOnlyValue(sql);
+        if (object == null) {
+            return null;
+        } else {
+            return object.toString();
+        }
+	}
+
+	public Vector sSortName() {
+		// TODO Auto-generated method stub
+		String sql = "select name from tb_sort";
+		System.out.println(sql);
+		return selectSomeNote(sql);
+	}
+
+	public Vector sMenuOfSell() {
+		// TODO Auto-generated method stub
+		String sql = "select num, name, code, sort_id, unit, unit_price, status from tb_menu";
+		System.out.println(sql);
+		Vector vector = selectSomeNote(sql);
+		System.out.println(vector);
+		for (int i = 0; i < vector.size(); i++) {
+			Vector menuV = (Vector) vector.get(i);
+			// 表联合
+			Vector sortV = sSortById(menuV.get(4).toString());
+			menuV.set(4, sortV.get(1));
+		}
+		return vector;
+	}
 	
+	public Vector sSortById(String id) {
+		String sql = "select * from tb_sort where id = " + id;
+		System.out.println(sql);
+		return selectOnlyNote(sql);
+	}
+
+	public String sMenuOfMaxId() {
+		// TODO Auto-generated method stub
+		String sql = "select max(num) from tb_menu";
+		System.out.println(sql);
+		Object object = selectOnlyNote(sql);
+		if(object == null) {
+			return null;
+		}else {
+			return object.toString();
+		}
+	}
+
+	public boolean uMenuStateByName(String name, String status) {
+		// TODO Auto-generated method stub
+		return longHaul("update tb_menu set status='" + status + "' where name='" + name + "'");
+	}
+
+	public Vector<Object> sMenuNoteById(String id) {
+		// TODO Auto-generated method stub
+		String sql = "select * from tb_menu where num=" + id;
+		System.out.println(sql);
+		return selectOnlyNote(sql);
+	}
+	
+	public Vector<Object> sMenuByName(String name) {
+		// TODO Auto-generated method stub
+		String sql = "select * from tb_menu where name='" + name + "'";
+		System.out.println(sql);
+		return selectOnlyNote(sql);
+	}
+
+	public Vector sSortByName(String name) {
+		// TODO Auto-generated method stub
+		String sql = "select id from tb_sort where name='" + name +"'" ;
+		System.out.println(sql);
+		return selectOnlyNote(sql);
+	}
+	
+	public Vector sSortNameById(String id) {
+		// TODO Auto-generated method stub
+		String sql = "select name from tb_sort where id=" +id ;
+		System.out.println(sql);
+		return selectOnlyNote(sql);
+	}
+
+	public Boolean iMenu(String[] values) {
+		// TODO Auto-generated method stub
+        String sql = "insert into tb_menu(num,name, code, sort_id, unit, unit_price, status) values('" + values[0] + "','" + values[1] + "','" + values[2]
+                + "'," + values[3] + ",'" + values[4] + "','" + values[5] + "','" + values[6] + "')";
+        System.out.println(sql);
+        return longHaul(sql);
+		
+	}
+
+    public boolean uMenu(String[] values) {
+        String sql = "update tb_menu set code='" + values[2] + "', sort_id=" + values[3] + ", unit='" + values[4] + "', unit_price=" + values[5] + ", status='"
+                + values[6] + "' where name='" + values[1] + "'";
+        System.out.println(sql);
+        return longHaul(sql);
+    }
+
 }
