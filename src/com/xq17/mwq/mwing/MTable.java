@@ -3,6 +3,7 @@ package com.xq17.mwq.mwing;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -16,6 +17,11 @@ public class MTable extends JTable {
     
     public MTable(DefaultTableModel tableModel) {
         super(tableModel);
+    }
+    
+    public MTable(AbstractTableModel tableModel) {
+        super(tableModel);
+        setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }
     
     // 表格列值居中显示

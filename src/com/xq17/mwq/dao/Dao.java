@@ -90,7 +90,7 @@ public class Dao extends BaseDao {
 
 	public String sOrderFormOfMinDatetime() {
 		// TODO Auto-generated method stub
-		String sql = "select min(datetime) from tb_order_form";
+		String sql = "select min(consume_date) from tb_order_form";
 		System.out.println(sql);
         Object object = selectOnlyValue(sql);
         if (object == null) {
@@ -189,4 +189,29 @@ public class Dao extends BaseDao {
         return longHaul(sql);
     }
 
+    public Vector sMenu() {
+        String hql = "select num, name, code, sort_id, unit, unit_price from tb_menu";
+        System.out.println(hql);
+        Vector vector = selectSomeNote(hql);
+        for (int i = 0; i < vector.size(); i++) {
+            Vector menuV = (Vector) vector.get(i);
+            Vector sortV = sSortById(menuV.get(4).toString());
+            menuV.set(4, sortV.get(1));
+        }
+        return vector;
+    }
+
+	public Vector sOrderFormOfDay(String date) {
+		// TODO Auto-generated method stub
+		String sql =  "select * from tb_order_form where consume_date between '" + date +" 00:00:00' and '" + date +" 23:59:59'";
+		System.out.println(sql);
+		return selectSomeNote(sql);
+	}
+
+	public Vector sOrderItemAndMenuByOrderFormNum(String num) {
+		// TODO Auto-generated method stub
+		String sql = "select * from v_order_item_and_menu  where order_form_num='" + num + "'";
+		System.out.println(sql);
+		return selectSomeNote(sql);
+	}
 }
